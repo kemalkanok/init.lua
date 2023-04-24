@@ -8,12 +8,26 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use 'marko-cerovac/material.nvim'
   use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+          'nvim-tree/nvim-web-devicons', -- optional
+      },
+      config = function()
+          require("nvim-tree").setup {}
+      end
+  }
+  use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
       -- or                            , branch = '0.1.x',
       requires = { {'nvim-lua/plenary.nvim'} }
   }
 
-  use ({ 'nvim-treesitter/nvim-treesitter', run =  ':TSUpdate'})
+  use {
+      'nvim-treesitter/nvim-treesitter',
+      run = function()
+          local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+          ts_update()
+      end,}
   use("nvim-treesitter/playground")
   use {
       'VonHeikemen/lsp-zero.nvim',
@@ -38,7 +52,7 @@ return require('packer').startup(function(use)
       }
   }
   use("theprimeagen/refactoring.nvim")
-  use { 'folke/which-key.nvim', 
+  use { 'folke/which-key.nvim',
   config = function()
       vim.o.timeout = true
       vim.o.timeoutlen = 300

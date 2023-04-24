@@ -90,7 +90,6 @@ lsp.configure('lua-language-server', {
     }
 })
 
- 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
@@ -157,3 +156,20 @@ vim.api.nvim_set_keymap("n", "<leader>rbf", [[ <Cmd>lua require('refactoring').r
 -- Inline variable can also pick up the identifier currently under the cursor without visual mode
 vim.api.nvim_set_keymap("n", "<leader>ri", [[ <Cmd>lua require('refactoring').refactor('Inline Variable')<CR>]], {noremap = true, silent = true, expr = false ,desc="LSP: [R]efactor [I]nline Variable"})
 
+
+--nvim-tree
+
+-- OR setup with some options
+require("nvim-tree").setup({
+  sort_by = "case_sensitive",
+    
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
+local api = require('nvim-tree.api')
+api.tree.open({ path = "<arg>" })
