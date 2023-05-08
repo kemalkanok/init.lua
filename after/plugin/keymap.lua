@@ -82,6 +82,9 @@ lsp.ensure_installed({
     --  "scss",
     "html",
     "tailwindcss",
+    "intelephense",
+    "phpactor",
+    "psalm"
 })
 
 -- Fix Undefined global 'vim'
@@ -132,9 +135,10 @@ vim.diagnostic.config({
 
 
 
-nmap('<leader>gd', ':lua vim.lsp.buf.definition()<CR>','[G]o To [D]efinition')
-nmap('<leader>gv', ':vsplit | lua vim.lsp.buf.definition()<CR>','[G]o To Definition [V]ertical Split')
-nmap('<leader>gh', ':belowright split |:resize 15 | lua vim.lsp.buf.definition()<CR>','[G]o To Definition [H]orizontal Split')
+nmap('<leader>gd', ':lua vim.lsp.buf.definition()<CR>', '[G]o To [D]efinition')
+nmap('<leader>gv', ':vsplit | lua vim.lsp.buf.definition()<CR>', '[G]o To Definition [V]ertical Split')
+nmap('<leader>gh', ':belowright split |:resize 15 | lua vim.lsp.buf.definition()<CR>',
+'[G]o To Definition [H]orizontal Split')
 
 nmap("K", vim.lsp.buf.hover, "Hover")
 nmap("<leader>ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbols")
