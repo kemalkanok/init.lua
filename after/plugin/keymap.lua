@@ -16,7 +16,8 @@ nmap("<leader>ssv", vim.cmd.vsp, "Split Screen Vertical")
 nmap("<leader>ssh", vim.cmd.sp, "Split Screen Horizontal")
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>")
-
+vim.keymap.set("v", "<C-/>", "<Esc>:'<,'>norm i//<CR>")
+vim.keymap.set("v", "<C-S-/>", "<Esc>:'<,'>norm xx<CR>")
 
 nmap('<leader>ps', function()
     builtin.grep_string({ search = vim.fn.input("Grep > ") })
@@ -26,13 +27,13 @@ nmap("<leader>f", vim.lsp.buf.format, "[F]ormat")
 -- See `:help telescope.builtin`
 nmap('<leader>?', require('telescope.builtin').oldfiles, '[?] Find recently opened files')
 nmap('<leader><space>', require('telescope.builtin').buffers, '[ ] Find existing buffers')
-nmap('<leader>/', function()
-    -- You can pass additional configuration to telescope to change theme, layout, etc.
-    require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-        winblend = 10,
-        previewer = false,
-    })
-end, '[/] Fuzzily search in current buffer')
+-- nmap('<leader>/', function()
+--     -- You can pass additional configuration to telescope to change theme, layout, etc.
+--     require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+--         winblend = 10,
+--         previewer = false,
+--     })
+-- end, '[/] Fuzzily search in current buffer')
 
 require('telescope').setup { defaults = { file_ignore_patterns = { "node_modules", "dist", "vendor" } } }
 
@@ -83,8 +84,8 @@ lsp.ensure_installed({
     "html",
     "tailwindcss",
     "intelephense",
-    "phpactor",
-    "psalm"
+    -- "phpactor",
+    -- "psalm"
 })
 
 -- Fix Undefined global 'vim'
@@ -138,7 +139,7 @@ vim.diagnostic.config({
 nmap('<leader>gd', ':lua vim.lsp.buf.definition()<CR>', '[G]o To [D]efinition')
 nmap('<leader>gv', ':vsplit | lua vim.lsp.buf.definition()<CR>', '[G]o To Definition [V]ertical Split')
 nmap('<leader>gh', ':belowright split |:resize 15 | lua vim.lsp.buf.definition()<CR>',
-'[G]o To Definition [H]orizontal Split')
+    '[G]o To Definition [H]orizontal Split')
 
 nmap("K", vim.lsp.buf.hover, "Hover")
 nmap("<leader>ws", vim.lsp.buf.workspace_symbol, "[W]orkspace [S]ymbols")
@@ -195,3 +196,11 @@ require("nvim-tree").setup({
 
 local api = require('nvim-tree.api')
 api.tree.open({ path = "<arg>" })
+
+--toggler
+require('Comment').setup()
+-- Toggle in Op-pending mode
+vim.keymap.set('n', '<leader>//', '<Plug>(comment_toggle_linewise)<CR>')
+
+-- Toggle in VISUAL mode
+vim.keymap.set('x', '<leader>//', '<Plug>(comment_toggle_linewise_visual)<CR>')
